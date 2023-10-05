@@ -1,5 +1,5 @@
 .dialogRoot {
-    overflow: hidden;
+    overflow: scroll;
 }
 .left {
     float: left;

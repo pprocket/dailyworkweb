@@ -1,27 +1,37 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './App.module.css'
-import '/style.css'
-import '/dist/output.css'
-import {AnimatePresence, motion, MotionConfig, useMotionValue} from "framer-motion";
+import { AnimatePresence, motion, MotionConfig, useMotionValue } from "framer-motion";
 import {
     Avatar,
     Dropdown, DropdownItem, DropdownMenu,
     DropdownTrigger,
-    Link
+    Link,
+    useDisclosure,
+    Button,
+    Modal,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalBody,
 } from "@nextui-org/react";
-import {Navigate, Route, Routes, useLocation} from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import LoginPage from "./pages/LoginPage.jsx";
 import WorkListPage from "./pages/WorkListPage.jsx";
-import {TransitionGroup, CSSTransition} from "react-transition-group";
-import {ToastContainer, Zoom} from "react-toastify";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import { ToastContainer, Zoom } from "react-toastify";
 
 function App() {
     const [count, setCount] = useState(0)
-
+    const {isOpen, onOpen, onOpenChange} = useDisclosure();
     const items = [
         {
             key: "source",
             label: "github",
+        },
+
+        {
+            key: "theme",
+            label: "设置主题",
         },
         {
             key: "logout",
@@ -61,12 +71,12 @@ function App() {
                     pauseOnHover
                     theme="colored"
                 />
-                <ToastContainer/>
+                <ToastContainer />
                 <div className={classes.avatarRoot}>
                     <Dropdown backdrop={"blur"}>
                         <DropdownTrigger>
                             <Avatar src={localStorage.getItem("avatar")} size="lg"
-                                    className={classes.avatar}/>
+                                className={classes.avatar} />
                         </DropdownTrigger>
                         <DropdownMenu
                             aria-label="Dynamic Actions"
@@ -75,6 +85,9 @@ function App() {
                                 switch (key) {
                                     case "source": {
                                         window.open('https://github.com/114514ns/dailyworkweb')
+                                    }
+                                    case "theme": {
+                                        onOpen()
                                     }
                                 }
                             }}
@@ -90,14 +103,35 @@ function App() {
                             )}
                         </DropdownMenu>
                     </Dropdown>
+                    <>
+                        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+                            <ModalContent>
+                                {(onClose) => (
+                                    <>
+                                        <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
+                                        <ModalBody>
+                                        </ModalBody>
+                                        <ModalFooter>
+                                            <Button color="danger" variant="light" onPress={onClose}>
+                                                Close
+                                            </Button>
+                                            <Button color="primary" onPress={onClose}>
+                                                Action
+                                            </Button>
+                                        </ModalFooter>
+                                    </>
+                                )}
+                            </ModalContent>
+                        </Modal>
+                    </>
                 </div>
                 <div className={classes.content}
 
                 >
                     <AnimatePresence mode={'wait'}>
                         <Routes key={location.pathname} location={location}>
-                            <Route path={'/login'} element={<LoginPage/>}/>
-                            <Route path={'/list/:id'} element={<WorkListPage/>}/>
+                            <Route path={'/login'} element={<LoginPage />} />
+                            <Route path={'/list/:id'} element={<WorkListPage />} />
                         </Routes>
                     </AnimatePresence>
                 </div>

@@ -162,6 +162,7 @@ function WorkListPage(props) {
                     isOpen={isOpen}
                     className={classes.dialog}
                     onOpenChange={onOpenChange}
+                    scrollBehavior='inside'
                     size={'5xl'}
                     motionProps={{
                         variants: {
@@ -239,7 +240,7 @@ function WorkListPage(props) {
                     <>
                         <Button onPress={onOpen2} color="primary">Open Modal</Button>
                         <Modal
-                            isOpen={true}
+                            isOpen={false}
                             onOpenChange={onOpenChange2}
                             placement="top-center"
                         >
@@ -272,6 +273,13 @@ function WorkListPage(props) {
                                                         {key.label}
                                                     </SelectItem>
                                                 })}
+                                            </Select>
+                                            <Select
+                                                label="可见性"
+                                                className="max-w-xs"
+                                            >
+                                                <SelectItem>同学相互可见</SelectItem>
+                                                <SelectItem>仅老师可见</SelectItem>
                                             </Select>
                                             <Switch defaultSelected>
                                                 允许补交

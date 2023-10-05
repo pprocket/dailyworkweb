@@ -6,7 +6,7 @@ import {NextUIProvider} from "@nextui-org/react";
 import {BrowserRouter} from "react-router-dom";
 import axios from "axios";
 import md5 from 'js-md5';
-import {toast} from "react-toastify";
+import './style.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <NextUIProvider>

@@ -21,7 +21,7 @@ class LoginPage extends Component {
         return (
             <div className={classes.root}>
                 <Input
-                    label="Password"
+                    label="Phone"
                     variant="bordered"
                     size={"lg"}
                     isRequired={true}
